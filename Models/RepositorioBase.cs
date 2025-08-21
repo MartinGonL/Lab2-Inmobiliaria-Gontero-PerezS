@@ -1,10 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Inmobiliaria_.Net_Core.Models
+﻿namespace Inmobiliaria_.Net_Core.Models
 {
 	public abstract class RepositorioBase
 	{
@@ -14,8 +8,12 @@ namespace Inmobiliaria_.Net_Core.Models
 		protected RepositorioBase(IConfiguration configuration)
 		{
 			this.configuration = configuration;
-			connectionString = configuration["ConnectionStrings:DefaultConnection"];
-			//connectionString = configuration["ConnectionStrings:MySql"];
+			connectionString = configuration["ConnectionStrings:MySql"];
+			
+			if (string.IsNullOrEmpty(connectionString))
+			{
+				throw new InvalidOperationException("La cadena de conexión 'ConnectionStrings:MySql' no está configurada.");
+			}
 		}
 	}
 }

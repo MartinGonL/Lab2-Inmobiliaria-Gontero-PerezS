@@ -1,6 +1,6 @@
-﻿@model IEnumerable<Inmobiliaria_.Net_Core.Models.Propietario>
+@model IEnumerable<Inmobiliaria_.Net_Core.Models.Inquilino>
 
-<h2>Lista de Propietarios</h2>
+<h2>Lista de Inquilinos</h2>
 
 @if (ViewBag.Mensaje != null)
 {
@@ -23,21 +23,20 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td>@item.IdPropietario</td>
+                <td>@item.IdInquilino</td>
                 <td>@item.Nombre</td>
                 <td>@item.Apellido</td>
                 <td>@item.Dni</td>
                 <td>@item.Telefono</td>
                 <td>@item.Direccion</td>
                 <td>
-                    <a class="btn btn-info" href="@Url.Action("Details", new { id = item.IdPropietario })">Detalles</a>
-                    <a class="btn btn-warning" href="@Url.Action("Edit", new { id = item.IdPropietario })">Editar</a>
-                    <a class="btn btn-danger" href="@Url.Action("Delete", new { id = item.IdPropietario })">Eliminar</a>
+                    <a class="btn btn-info" href="@Url.Action("Details", new { id = item.IdInquilino })">Detalles</a>
+                    <a class="btn btn-warning" href="@Url.Action("Edit", new { id = item.IdInquilino })">Editar</a>
+                    <a class="btn btn-danger" href="@Url.Action("Delete", new { id = item.IdInquilino })">Eliminar</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
 
-<a class="btn btn-primary" href="@Url.Action("Create")">Agregar Nuevo Propietario</a>
-
+<a class="btn btn-primary" href="@Url.Action("Create")">Agregar Nuevo Inquilino</a>

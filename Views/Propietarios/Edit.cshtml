@@ -1,78 +1,29 @@
 ﻿@model Inmobiliaria_.Net_Core.Models.Propietario
-@{
-	ViewData["Title"] = "Editar Propietario";
-}
 
-<h4>Editar Propietario</h4>
-<hr />
-<div class="row">
-	<div class="col-md-4">
-		<form asp-action="Edit">
-			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
-			<input type="hidden" name="IdPropietario" value="@Model.IdPropietario" />
-			<div class="form-group">
-				<label asp-for="Nombre" class="control-label"></label>
-				<input asp-for="Nombre" class="form-control" />
-				<span asp-validation-for="Nombre" class="text-danger"></span>
-			</div>
-			<div class="form-group">
-				<label asp-for="Apellido" class="control-label"></label>
-				<input asp-for="Apellido" class="form-control" />
-				<span asp-validation-for="Apellido" class="text-danger"></span>
-			</div>
-			<div class="form-group">
-				<label asp-for="Dni" class="control-label"></label>
-				<input asp-for="Dni" class="form-control" />
-				<span asp-validation-for="Dni" class="text-danger"></span>
-			</div>
-			<div class="form-group">
-				<label asp-for="Telefono" class="control-label"></label>
-				<input asp-for="Telefono" class="form-control" />
-				<span asp-validation-for="Telefono" class="text-danger"></span>
-			</div>
-			<div class="form-group">
-				<label asp-for="Email" class="control-label"></label>
-				<input asp-for="Email" class="form-control" />
-				<span asp-validation-for="Email" class="text-danger"></span>
-			</div>
-			<div class="form-group">
-				<input type="submit" value="Guardar" class="btn btn-primary" />
-			</div>
-		</form>
-	</div>
-</div>
+<h2>Editar Propietario</h2>
 
-<h4>Cambiar contraseña</h4>
-<hr />
-<div class="row">
-	<div class="col-md-4">
-		<form asp-action="CambiarPass" asp-route-id="@Model.IdPropietario" name="CambiarPass">
-			<input type="hidden" name="IdPropietario" value="@Model.IdPropietario" />
-			<div class="form-group">
-				<label class="control-label">Clave Antigüa</label>
-				<input type="password" name="ClaveVieja" class="form-control" />
-			</div>
-			<div class="form-group">
-				<label class="control-label">Nueva Clave</label>
-				<input type="password" name="ClaveNueva" class="form-control" />
-			</div>
-			<div class="form-group">
-				<label class="control-label">Repetir Clave Nueva</label>
-				<input type="password" name="ClaveRepeticion" class="form-control" />
-			</div>
-			<div class="form-group">
-				<input type="submit" value="Cambiar" class="btn btn-primary" />
-			</div>
-		</form>
-	</div>
-</div>
-
-<div>
-	<a asp-action="Index">Volver al listado</a>
-</div>
-
-@section Scripts {
-	@{
-		await Html.RenderPartialAsync("_ValidationScriptsPartial");
-	}
-}
+<form asp-action="Edit" method="post">
+    <input type="hidden" name="IdPropietario" value="@Model.IdPropietario" />
+    <div class="form-group">
+        <label for="Nombre">Nombre</label>
+        <input type="text" class="form-control" id="Nombre" name="Nombre" value="@Model.Nombre" required />
+    </div>
+    <div class="form-group">
+        <label for="Apellido">Apellido</label>
+        <input type="text" class="form-control" id="Apellido" name="Apellido" value="@Model.Apellido" required />
+    </div>
+    <div class="form-group">
+        <label for="Dni">DNI</label>
+        <input type="text" class="form-control" id="Dni" name="Dni" value="@Model.Dni" required />
+    </div>
+    <div class="form-group">
+        <label for="Telefono">Teléfono</label>
+        <input type="text" class="form-control" id="Telefono" name="Telefono" value="@Model.Telefono" />
+    </div>
+    <div class="form-group">
+        <label for="Direccion">Dirección</label>
+        <input type="text" class="form-control" id="Direccion" name="Direccion" value="@Model.Direccion" />
+    </div>
+    <button type="submit" class="btn btn-success">Guardar</button>
+    <a class="btn btn-secondary" href="@Url.Action("Index")">Cancelar</a>
+</form>
