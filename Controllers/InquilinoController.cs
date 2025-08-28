@@ -11,7 +11,7 @@ namespace Inmobiliaria_.Net_Core.Controllers
         public InquilinoController(IConfiguration config)
         {
             this.config = config;
-            this.repositorio = new RepositorioInquilino(config); // Uso directo del repositorio
+            this.repositorio = new RepositorioInquilino(config); 
         }
 
         // GET: Inquilino
