@@ -9,12 +9,14 @@ namespace Inmobiliaria_.Net_Core.Controllers
         private readonly IConfiguration config;
 
         private readonly RepositorioInquilino repositorioInquilino;
+        private readonly RepositorioInmueble repositorioInmueble;
 
         public ContratosController(IConfiguration config)
         {
             this.config = config;
             this.repositorio = new RepositorioContrato(config);
             this.repositorioInquilino = new RepositorioInquilino(config);
+            this.repositorioInmueble = new RepositorioInmueble(config);
         }
 
         // GET: Contratos
@@ -25,8 +27,10 @@ namespace Inmobiliaria_.Net_Core.Controllers
                 var lista = repositorio.ObtenerTodos();
                 ViewBag.Id = TempData["Id"];
                 ViewBag.inquilinosList = repositorioInquilino.ObtenerTodos();
+                ViewBag.inmueblesList = repositorioInmueble.ObtenerTodos();
                 if (TempData.ContainsKey("Mensaje"))
-                    ViewBag.Mensaje = TempData["Mensaje"];
+                    ViewBag.Mensaje = TempData["Mensaje"];                    
+
                 return View(lista);
             }
             catch (Exception ex)
@@ -56,6 +60,8 @@ namespace Inmobiliaria_.Net_Core.Controllers
             {
                  var inquilinosList = new RepositorioInquilino(config).ObtenerTodos(); 
                 ViewBag.inquilinosList = inquilinosList;
+                var inmueblelist = new RepositorioInmueble(config).ObtenerTodos(); 
+                ViewBag.inmuebleList = inmueblelist;
                 return View(new Contrato());
             }
             catch (Exception ex)
@@ -75,12 +81,14 @@ namespace Inmobiliaria_.Net_Core.Controllers
                 {
                     repositorio.Alta(contrato);
                     TempData["Mensaje"] = "Contrato creado correctamente";
-                    return RedirectToAction(nameof(Index));
+                    return RedirectToAction(nameof(Create));
         }
                 else
                 {
                  var inquilinosList = new RepositorioInquilino(config).ObtenerTodos();
                  ViewBag.inquilinosList = inquilinosList;
+                 var inmueblelist = new RepositorioInmueble(config).ObtenerTodos();
+                 ViewBag.inmuebleList = inmueblelist;
                     return View(contrato);
                 }
             }

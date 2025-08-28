@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = "Crear Contrato";
     var inquilinosList = ViewBag.inquilinosList as List<Inmobiliaria_.Net_Core.Models.Inquilino>;
+    var inmueblesList = ViewBag.inmuebleList as List<Inmobiliaria_.Net_Core.Models.Inmueble>;    
 }
 
 <h2>Crear Nuevo Contrato</h2>
@@ -23,8 +24,17 @@
     </div>
     <div class="form-group">
         <label for="IdInmueble">Inmueble</label>
-        <input type="number" class="form-control" id="IdInmueble" name="IdInmueble" required />
-    </div>
+        <select class="form-control" id="IdInmueble" name="IdInmueble" required>
+            <option value="">Seleccione un inmueble</option>
+            @if (inmueblesList != null)
+            {
+                foreach (var inmueble in inmueblesList)
+                {
+                    <option value="@inmueble.IdInmueble">@inmueble.Direccion</option>
+                }
+            }
+        </select>  
+    </div>           
     <div class="form-group">
         <label for="MontoMensual">Monto Mensual</label>
         <input type="number" class="form-control" id="MontoMensual" name="MontoMensual" step="0.01" required />
