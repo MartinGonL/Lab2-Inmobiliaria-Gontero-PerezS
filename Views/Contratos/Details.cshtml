@@ -1,0 +1,25 @@
+@model Inmobiliaria_.Net_Core.Models.Contrato
+
+<h2>Detalles del Contrato</h2>
+
+<dl class="row">
+    <dt class="col-sm-2">Código</dt>
+    <dd class="col-sm-10">@Model.IdContrato</dd>
+
+    <dt class="col-sm-2">Inquilino</dt>
+    <dd class="col-sm-10">@Model.IdInquilino</dd>
+
+    <dt class="col-sm-2">Inmueble</dt>
+    <dd class="col-sm-10">@Model.IdInmueble</dd>
+
+    <dt class="col-sm-2">Monto Mensual</dt>
+    <dd class="col-sm-10">@Model.MontoMensual</dd>
+
+    <dt class="col-sm-2">Fecha Inicio</dt>
+    <dd class="col-sm-10">@Model.FechaInicio.ToString("yyyy-MM-dd")</dd>
+
+    <dt class="col-sm-2">Fecha Fin</dt>
+    <dd class="col-sm-10">@Model.FechaFin.ToString("yyyy-MM-dd")</dd>
+</dl>
+
+<a class="btn btn-primary" asp-action="Index">Volver a la Lista</a>
