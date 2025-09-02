@@ -12,15 +12,15 @@ namespace Inmobiliaria_.Net_Core.Models
 
         [Required]
         [StringLength(255)]
-        public string Direccion { get; set; }
+        public string Direccion { get; set; } = string.Empty; // Corregido
 
         [StringLength(50)]
-        public string Tipo { get; set; }
+        public string Tipo { get; set; } = string.Empty; // Corregido
 
         [Required]
-        public string Estado { get; set; } 
+        public string Estado { get; set; } = string.Empty; // Corregido
 
-        // Relaciones (opcional esto nos lo ofrecio la ia como mejora para tener acceso a la relacion)
-        public Propietario Propietario { get; set; }
+        // Relaciones
+        public Propietario? Propietario { get; set; } // Permite nulo
     }
 }

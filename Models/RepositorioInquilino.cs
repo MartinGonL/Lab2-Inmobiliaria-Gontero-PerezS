@@ -93,8 +93,8 @@ namespace Inmobiliaria_.Net_Core.Models
                             Nombre = reader.GetString("nombre"),
                             Apellido = reader.GetString("apellido"),
                             Dni = reader.GetString("dni"),
-                            Telefono = reader.IsDBNull(reader.GetOrdinal("telefono")) ? null : reader.GetString("telefono"),
-                            Direccion = reader.IsDBNull(reader.GetOrdinal("direccion")) ? null : reader.GetString("direccion"),
+                            Telefono = reader.IsDBNull(reader.GetOrdinal("telefono")) ? string.Empty : reader.GetString("telefono"),
+                            Direccion = reader.IsDBNull(reader.GetOrdinal("direccion")) ? string.Empty : reader.GetString("direccion"),
                         };
                         res.Add(i);
                     }
@@ -125,8 +125,8 @@ namespace Inmobiliaria_.Net_Core.Models
                             Nombre = reader.GetString("nombre"),
                             Apellido = reader.GetString("apellido"),
                             Dni = reader.GetString("dni"),
-                            Telefono = reader.IsDBNull(reader.GetOrdinal("telefono")) ? null : reader.GetString("telefono"),
-                            Direccion = reader.IsDBNull(reader.GetOrdinal("direccion")) ? null : reader.GetString("direccion"),
+                            Telefono = reader.IsDBNull(reader.GetOrdinal("telefono")) ? string.Empty : reader.GetString("telefono"),
+                            Direccion = reader.IsDBNull(reader.GetOrdinal("direccion")) ? string.Empty : reader.GetString("direccion"),
                         };
                     }
                     connection.Close();

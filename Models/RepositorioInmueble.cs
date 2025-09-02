@@ -80,7 +80,7 @@ namespace Inmobiliaria_.Net_Core.Models
                             IdInmueble = reader.GetInt32("id_inmueble"),
                             IdPropietario = reader.GetInt32("id_propietario"),
                             Direccion = reader.GetString("direccion"),
-                            Tipo = reader.IsDBNull(reader.GetOrdinal("tipo")) ? null : reader.GetString("tipo"),
+                            Tipo = reader.IsDBNull(reader.GetOrdinal("tipo")) ? string.Empty : reader.GetString("tipo"),
                             Estado = reader.GetString("estado")
                         });
                     }
@@ -107,7 +107,7 @@ namespace Inmobiliaria_.Net_Core.Models
                             IdInmueble = reader.GetInt32("id_inmueble"),
                             IdPropietario = reader.GetInt32("id_propietario"),
                             Direccion = reader.GetString("direccion"),
-                            Tipo = reader.IsDBNull(reader.GetOrdinal("tipo")) ? null : reader.GetString("tipo"),
+                            Tipo = reader.IsDBNull(reader.GetOrdinal("tipo")) ? string.Empty : reader.GetString("tipo"),
                             Estado = reader.GetString("estado")
                         };
                     }
