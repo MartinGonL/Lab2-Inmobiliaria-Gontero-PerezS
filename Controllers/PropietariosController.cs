@@ -26,7 +26,7 @@ namespace Inmobiliaria_.Net_Core.Controllers
                     ViewBag.Mensaje = TempData["Mensaje"];
                 return View(lista);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -40,7 +40,7 @@ namespace Inmobiliaria_.Net_Core.Controllers
                 var entidad = repositorio.ObtenerPorId(id);
                 return View(entidad);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -53,7 +53,7 @@ namespace Inmobiliaria_.Net_Core.Controllers
             {
                 return View(new Propietario());
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -77,7 +77,7 @@ namespace Inmobiliaria_.Net_Core.Controllers
                     return View(propietario);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -91,7 +91,7 @@ namespace Inmobiliaria_.Net_Core.Controllers
                 var entidad = repositorio.ObtenerPorId(id);
                 return View(entidad);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -115,7 +115,7 @@ namespace Inmobiliaria_.Net_Core.Controllers
                     return View(entidad);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -129,7 +129,7 @@ namespace Inmobiliaria_.Net_Core.Controllers
                 var entidad = repositorio.ObtenerPorId(id);
                 return View(entidad);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -146,7 +146,7 @@ namespace Inmobiliaria_.Net_Core.Controllers
                 TempData["Mensaje"] = "Eliminación realizada correctamente";
                 return RedirectToAction(nameof(Index));
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
