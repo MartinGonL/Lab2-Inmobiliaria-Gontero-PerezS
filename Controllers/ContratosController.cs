@@ -5,18 +5,18 @@ namespace Inmobiliaria_.Net_Core.Controllers
 {
     public class ContratosController : Controller
     {
-        private readonly RepositorioContrato repositorio;
+        private readonly IRepositorioContrato repositorio;
         private readonly IConfiguration config;
 
-        private readonly RepositorioInquilino repositorioInquilino;
-        private readonly RepositorioInmueble repositorioInmueble;
+        private readonly IRepositorioInquilino repositorioInquilino;
+        private readonly IRepositorioInmueble repositorioInmueble;
 
-        public ContratosController(IConfiguration config)
+        public ContratosController(IConfiguration config,IRepositorioContrato repositorioContrato, IRepositorioInquilino repositorioInquilino, IRepositorioInmueble repositorioInmueble)
         {
             this.config = config;
-            this.repositorio = new RepositorioContrato(config);
-            this.repositorioInquilino = new RepositorioInquilino(config);
-            this.repositorioInmueble = new RepositorioInmueble(config);
+            this.repositorio = repositorioContrato;
+            this.repositorioInquilino = repositorioInquilino;
+            this.repositorioInmueble = repositorioInmueble;
         }
 
         // GET: Contratos

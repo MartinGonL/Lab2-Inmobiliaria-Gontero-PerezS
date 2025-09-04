@@ -2,7 +2,7 @@ using MySql.Data.MySqlClient;
 
 namespace Inmobiliaria_.Net_Core.Models
 {
-    public class RepositorioContrato : RepositorioBase
+    public class RepositorioContrato : RepositorioBase, IRepositorioContrato
     {
         public RepositorioContrato(IConfiguration configuration) : base(configuration)
         {

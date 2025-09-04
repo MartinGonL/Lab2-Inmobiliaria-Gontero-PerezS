@@ -5,13 +5,13 @@ namespace Inmobiliaria_.Net_Core.Controllers
 {
     public class InquilinoController : Controller
     {
-        private readonly RepositorioInquilino repositorio;
+        private readonly IRepositorioInquilino repositorio;
         private readonly IConfiguration config;
 
-        public InquilinoController(IConfiguration config)
+        public InquilinoController(IConfiguration config, IRepositorioInquilino repositorio)
         {
             this.config = config;
-            this.repositorio = new RepositorioInquilino(config); 
+            this.repositorio = repositorio;
         }
 
         // GET: Inquilino
