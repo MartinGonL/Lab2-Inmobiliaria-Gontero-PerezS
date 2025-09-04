@@ -6,13 +6,17 @@ namespace Inmobiliaria_.Net_Core.Controllers
 {
     public class PropietariosController : Controller
     {
-        private readonly RepositorioPropietario repositorio;
-        private readonly IConfiguration config;
+        // 1. Cambiamos el tipo del campo a la INTERFAZ.
+        // Ya no es 'RepositorioPropietario', sino 'IRepositorioPropietario'.
+        private readonly IRepositorioPropietario repositorio;
+       
 
-        public PropietariosController(IConfiguration config)
+        // 2. Pedimos la INTERFAZ en el constructor (Inyección de Dependencias).
+        // .NET se encargará de darnos la instancia correcta de 'RepositorioPropietario'.
+        public PropietariosController(IRepositorioPropietario repositorio)
         {
-            this.config = config;
-            this.repositorio = new RepositorioPropietario(config); // Uso directo del repositorio
+            // 3. Ya no creamos el repositorio aquí, solo lo recibimos y lo asignamos.
+            this.repositorio = repositorio;
         }
 
         // GET: Propietarios

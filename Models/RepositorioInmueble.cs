@@ -2,7 +2,7 @@ using MySql.Data.MySqlClient;
 
 namespace Inmobiliaria_.Net_Core.Models
 {
-    public class RepositorioInmueble : RepositorioBase
+    public class RepositorioInmueble : RepositorioBase, IRepositorioInmueble
     {
         public RepositorioInmueble(IConfiguration configuration) : base(configuration)
         {
@@ -20,7 +20,7 @@ namespace Inmobiliaria_.Net_Core.Models
                     command.Parameters.AddWithValue("@idPropietario", casa.IdPropietario);
                     command.Parameters.AddWithValue("@direccion", casa.Direccion);
                     command.Parameters.AddWithValue("@tipo", casa.Tipo);
-                    command.Parameters.AddWithValue("@estado", casa.Estado); //hay que setearlo a mano???
+                    command.Parameters.AddWithValue("@estado", casa.Estado);
                     connection.Open();
                     casa.IdInmueble = Convert.ToInt32(command.ExecuteScalar());
                     connection.Close();

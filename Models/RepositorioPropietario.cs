@@ -3,7 +3,7 @@ using System.Data;
 
 namespace Inmobiliaria_.Net_Core.Models
 {
-    public class RepositorioPropietario : RepositorioBase
+    public class RepositorioPropietario : RepositorioBase, IRepositorioPropietario
     {
         public RepositorioPropietario(IConfiguration configuration) : base(configuration)
         {

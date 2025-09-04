@@ -5,13 +5,15 @@ namespace Inmobiliaria_.Net_Core.Controllers
 {
     public class InmueblesController : Controller
     {
-        private readonly RepositorioInmueble repositorio;
+        private readonly IRepositorioInmueble repositorioInmueble;
+        private readonly IRepositorioPropietario repositorioPropietario;
         private readonly IConfiguration config;
 
-        public InmueblesController(IConfiguration config)
+        public InmueblesController(IConfiguration config, IRepositorioInmueble repositorioInmueble, IRepositorioPropietario repositorioPropietario)
         {
             this.config = config;
-            this.repositorio = new RepositorioInmueble(config);
+            this.repositorioInmueble = repositorioInmueble;
+            this.repositorioPropietario = repositorioPropietario;
         }
 
         // GET: Inmuebles
@@ -19,7 +21,7 @@ namespace Inmobiliaria_.Net_Core.Controllers
         {
             try
             {
-                var lista = repositorio.ObtenerTodos();
+                var lista = repositorioInmueble.ObtenerTodos();
                 ViewBag.Id = TempData["Id"];
                 if (TempData.ContainsKey("Mensaje"))
                     ViewBag.Mensaje = TempData["Mensaje"];
@@ -36,7 +38,7 @@ namespace Inmobiliaria_.Net_Core.Controllers
         {
             try
             {
-                var entidad = repositorio.ObtenerPorId(id);
+                var entidad = repositorioInmueble.ObtenerPorId(id);
                 return View(entidad);
             }
             catch (Exception ex)
@@ -67,7 +69,7 @@ namespace Inmobiliaria_.Net_Core.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    repositorio.Alta(inmueble);
+                    repositorioInmueble.Alta(inmueble);
                     TempData["Id"] = inmueble.IdInmueble;
                     return RedirectToAction(nameof(Index));
                 }
@@ -87,7 +89,7 @@ namespace Inmobiliaria_.Net_Core.Controllers
         {
             try
             {
-                var entidad = repositorio.ObtenerPorId(id);
+                var entidad = repositorioInmueble.ObtenerPorId(id);
                 return View(entidad);
             }
             catch (Exception ex)
@@ -105,7 +107,7 @@ namespace Inmobiliaria_.Net_Core.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    repositorio.Modificacion(entidad);
+                    repositorioInmueble.Modificacion(entidad);
                     TempData["Mensaje"] = "Datos guardados correctamente";
                     return RedirectToAction(nameof(Index));
                 }
@@ -125,7 +127,7 @@ namespace Inmobiliaria_.Net_Core.Controllers
         {
             try
             {
-                var entidad = repositorio.ObtenerPorId(id);
+                var entidad = repositorioInmueble.ObtenerPorId(id);
                 return View(entidad);
             }
             catch (Exception ex)
@@ -141,7 +143,7 @@ namespace Inmobiliaria_.Net_Core.Controllers
         {
             try
             {
-                repositorio.Baja(id);
+                repositorioInmueble.Baja(id);
                 TempData["Mensaje"] = "Eliminación realizada correctamente";
                 return RedirectToAction(nameof(Index));
             }
