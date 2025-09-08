@@ -26,9 +26,5 @@ namespace Inmobiliaria_.Net_Core.Models
         [DataType(DataType.Date)]
         public DateTime FechaFin { get; set; }
 
-        public int CreadoPor { get; set; }
-
-        public int? TerminadoPor { get; set; }
-
     }
 }
