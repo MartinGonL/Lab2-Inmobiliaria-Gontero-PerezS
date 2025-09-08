@@ -23,7 +23,7 @@ namespace Inmobiliaria_.Net_Core.Controllers
             {
                 var lista = repositorioInmueble.ObtenerTodos();
                 ViewBag.Id = TempData["Id"];
-                ViewBag.propietariosList = repositorioPropietario.ObtenerTodos();
+                ViewBag.propietarioList = repositorioPropietario.ObtenerTodos();
                 if (TempData.ContainsKey("Mensaje"))
                     ViewBag.Mensaje = TempData["Mensaje"];
                 return View(lista);
@@ -53,6 +53,8 @@ namespace Inmobiliaria_.Net_Core.Controllers
         {
             try
             {
+                var propietariosList = new RepositorioPropietario(config).ObtenerTodos(); 
+                ViewBag.propietariosList = propietariosList;                
                 return View(new Inmueble());
             }
             catch (Exception ex)
@@ -71,11 +73,13 @@ namespace Inmobiliaria_.Net_Core.Controllers
                 if (ModelState.IsValid)
                 {
                     repositorioInmueble.Alta(inmueble);
-                    TempData["Id"] = inmueble.IdInmueble;
+                    TempData["Mensaje"] = "Inmueble creado correctamente";
                     return RedirectToAction(nameof(Index));
                 }
                 else
                 {
+                    var propietariosList = new RepositorioPropietario(config).ObtenerTodos();
+                    ViewBag.propietariosList = propietariosList;
                     return View(inmueble);
                 }
             }

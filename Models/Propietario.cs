@@ -8,9 +8,8 @@ namespace Inmobiliaria_.Net_Core.Models
 		[Key]
 		public int IdPropietario { get; set; }
 		[Required]
-		public string Nombre { get; set; } = string.Empty;      // Corregido
-		[Required]
-		public string Apellido { get; set; } = string.Empty;    // Corregido
+		public string Nombre { get; set; } = string.Empty;      
+		public string Apellido { get; set; } = string.Empty;    
 		[Required]
 		public string Dni { get; set; } = string.Empty;
 		public string Telefono { get; set; } = string.Empty;
