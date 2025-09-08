@@ -23,6 +23,7 @@ namespace Inmobiliaria_.Net_Core.Controllers
             {
                 var lista = repositorioInmueble.ObtenerTodos();
                 ViewBag.Id = TempData["Id"];
+                ViewBag.propietariosList = repositorioPropietario.ObtenerTodos();
                 if (TempData.ContainsKey("Mensaje"))
                     ViewBag.Mensaje = TempData["Mensaje"];
                 return View(lista);
