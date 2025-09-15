@@ -2,15 +2,9 @@
 
 <h2>Lista de Propietarios</h2>
 
-@if (ViewBag.Mensaje != null)
-{
-    <div class="alert alert-success">@ViewBag.Mensaje</div>
-}
-
 <table class="table">
     <thead>
         <tr>
-            <th>Código</th>
             <th>Nombre</th>
             <th>Apellido</th>
             <th>DNI</th>
@@ -23,21 +17,20 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td>@item.IdPropietario</td>
                 <td>@item.Nombre</td>
                 <td>@item.Apellido</td>
                 <td>@item.Dni</td>
                 <td>@item.Telefono</td>
                 <td>@item.Direccion</td>
                 <td>
-                    <a class="btn btn-info" href="@Url.Action("Details", new { id = item.IdPropietario })">Detalles</a>
-                    <a class="btn btn-warning" href="@Url.Action("Edit", new { id = item.IdPropietario })">Editar</a>
-                    <a class="btn btn-danger" href="@Url.Action("Delete", new { id = item.IdPropietario })">Eliminar</a>
+                    <a class="btn btn-info" asp-action="Details" asp-route-id="@item.IdPropietario">Detalles</a>
+                    <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.IdPropietario">Editar</a>
+                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.IdPropietario">Eliminar</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
 
-<a class="btn btn-primary" href="@Url.Action("Create")">Agregar Nuevo Propietario</a>
+<a class="btn btn-primary" asp-action="Create">Agregar Nuevo Propietario</a>
 

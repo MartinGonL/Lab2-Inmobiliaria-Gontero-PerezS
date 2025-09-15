@@ -18,12 +18,12 @@
     </div>
     <div class="form-group">
         <label for="Telefono">Teléfono</label>
-        <input type="text" class="form-control" id="Telefono" name="Telefono" value="@Model.Telefono" />
+        <input type="text" class="form-control" id="Telefono" name="Telefono" value="@Model.Telefono" required />
     </div>
     <div class="form-group">
         <label for="Direccion">Dirección</label>
-        <input type="text" class="form-control" id="Direccion" name="Direccion" value="@Model.Direccion" />
+        <input type="text" class="form-control" id="Direccion" name="Direccion" value="@Model.Direccion" required />
     </div>
     <button type="submit" class="btn btn-success">Guardar</button>
-    <a class="btn btn-secondary" href="@Url.Action("Index")">Cancelar</a>
+    <a class="btn btn-secondary" asp-action="Index">Cancelar</a>
 </form>
