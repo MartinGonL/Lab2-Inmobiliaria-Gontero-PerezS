@@ -102,7 +102,11 @@ namespace Inmobiliaria_.Net_Core.Models
             Inmueble inmueble = null;
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
-                string sql = "SELECT id_inmueble, id_propietario, direccion, tipo, estado FROM inmueble WHERE id_inmueble = @id";
+                string sql = @"SELECT i.id_inmueble, i.id_propietario, i.direccion, i.tipo, i.estado,
+                                      p.nombre AS PropietarioNombre, p.apellido AS PropietarioApellido
+                               FROM inmueble i
+                               INNER JOIN propietario p ON i.id_propietario = p.id_propietario
+                               WHERE i.id_inmueble = @id";
                 using (MySqlCommand command = new MySqlCommand(sql, connection))
                 {
                     command.Parameters.AddWithValue("@id", id);
@@ -116,7 +120,12 @@ namespace Inmobiliaria_.Net_Core.Models
                             IdPropietario = reader.GetInt32("id_propietario"),
                             Direccion = reader.GetString("direccion"),
                             Tipo = reader.IsDBNull(reader.GetOrdinal("tipo")) ? string.Empty : reader.GetString("tipo"),
-                            Estado = reader.GetString("estado")
+                            Estado = reader.GetString("estado"),
+                            Propietario = new Propietario
+                            {
+                                Nombre = reader.GetString("PropietarioNombre"),
+                                Apellido = reader.GetString("PropietarioApellido")
+                            }
                         };
                     }
                 }
