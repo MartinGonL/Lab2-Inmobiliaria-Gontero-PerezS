@@ -2,46 +2,54 @@
     ViewData["Title"] = "Inicio";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Bienvenido a Lab2 Inmobiliaria</h1>
-    <p class="lead">Gestione propietarios, inquilinos e inmuebles de manera eficiente.</p>
+<div class="text-center mb-5">
+    <h1 class="display-4 fw-bold text-primary">Bienvenido a Lab2 Inmobiliaria</h1>
+    <p class="lead text-secondary">Gestione propietarios, inquilinos e inmuebles de manera eficiente.</p>
 </div>
 
-<div class="row text-center mt-4">
-    <div class="col-md-4">
-        <div class="card">
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 justify-content-center">
+    <div class="col">
+        <div class="card h-100 shadow-sm border-primary">
             <div class="card-body">
-                <h5 class="card-title">Propietarios</h5>
+                <h5 class="card-title text-primary"><i class="bi bi-person-badge"></i> Propietarios</h5>
                 <p class="card-text">Administre los propietarios registrados en el sistema.</p>
-                <a class="btn btn-primary" asp-controller="Propietarios" asp-action="Index">Ir a Propietarios</a>
+                <a class="btn btn-outline-primary w-100" asp-controller="Propietarios" asp-action="Index">
+                    <i class="bi bi-arrow-right-circle"></i> Ir a Propietarios
+                </a>
             </div>
         </div>
     </div>
-    <div class="col-md-4">
-        <div class="card">
+    <div class="col">
+        <div class="card h-100 shadow-sm border-success">
             <div class="card-body">
-                <h5 class="card-title">Inquilinos</h5>
+                <h5 class="card-title text-success"><i class="bi bi-person-lines-fill"></i> Inquilinos</h5>
                 <p class="card-text">Gestione los inquilinos y sus datos personales.</p>
-                <a class="btn btn-primary" asp-controller="Inquilino" asp-action="Index">Ir a Inquilinos</a>
+                <a class="btn btn-outline-success w-100" asp-controller="Inquilino" asp-action="Index">
+                    <i class="bi bi-arrow-right-circle"></i> Ir a Inquilinos
+                </a>
             </div>
         </div>
-    </div>    
-        <div class="col-md-4">
-        <div class="card">
+    </div>
+    <div class="col">
+        <div class="card h-100 shadow-sm border-info">
             <div class="card-body">
-                <h5 class="card-title">Inmuebles</h5>
-                <p class="card-text">Gestione los Inmuebles.</p>
-                <a class="btn btn-primary" asp-controller="Inmuebles" asp-action="Index">Ir a Inmuebles</a>
+                <h5 class="card-title text-info"><i class="bi bi-house-door"></i> Inmuebles</h5>
+                <p class="card-text">Gestione los inmuebles disponibles y sus características.</p>
+                <a class="btn btn-outline-info w-100" asp-controller="Inmuebles" asp-action="Index">
+                    <i class="bi bi-arrow-right-circle"></i> Ir a Inmuebles
+                </a>
             </div>
         </div>
-    </div>  
-        <div class="col-md-4">
-        <div class="card">
+    </div>
+    <div class="col">
+        <div class="card h-100 shadow-sm border-warning">
             <div class="card-body">
-                <h5 class="card-title">Contratos</h5>
-                <p class="card-text">Gestione los Contratos.</p>
-                <a class="btn btn-primary" asp-controller="Contratos" asp-action="Index">Ir a Contratos</a> 
+                <h5 class="card-title text-warning"><i class="bi bi-file-earmark-text"></i> Contratos</h5>
+                <p class="card-text">Gestione los contratos de alquiler y sus detalles.</p>
+                <a class="btn btn-outline-warning w-100" asp-controller="Contratos" asp-action="Index">
+                    <i class="bi bi-arrow-right-circle"></i> Ir a Contratos
+                </a>
             </div>
         </div>
-    </div>  
+    </div>
 </div>

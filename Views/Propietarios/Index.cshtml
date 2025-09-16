@@ -1,36 +1,51 @@
 ﻿@model IEnumerable<Inmobiliaria_.Net_Core.Models.Propietario>
 
-<h2>Lista de Propietarios</h2>
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="mb-0 text-primary">Lista de Propietarios</h2>
+        <a class="btn btn-primary" asp-action="Create">
+            <i class="bi bi-person-plus"></i> Nuevo Propietario
+        </a>
+    </div>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Nombre</th>
-            <th>Apellido</th>
-            <th>DNI</th>
-            <th>Teléfono</th>
-            <th>Dirección</th>
-            <th>Acciones</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@item.Nombre</td>
-                <td>@item.Apellido</td>
-                <td>@item.Dni</td>
-                <td>@item.Telefono</td>
-                <td>@item.Direccion</td>
-                <td>
-                    <a class="btn btn-info" asp-action="Details" asp-route-id="@item.IdPropietario">Detalles</a>
-                    <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.IdPropietario">Editar</a>
-                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.IdPropietario">Eliminar</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
-
-<a class="btn btn-primary" asp-action="Create">Agregar Nuevo Propietario</a>
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <table class="table table-hover table-bordered align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>DNI</th>
+                        <th>Teléfono</th>
+                        <th>Dirección</th>
+                        <th class="text-center">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Nombre</td>
+                            <td>@item.Apellido</td>
+                            <td>@item.Dni</td>
+                            <td>@item.Telefono</td>
+                            <td>@item.Direccion</td>
+                            <td class="text-center">
+                                <a class="btn btn-info btn-sm me-1" asp-action="Details" asp-route-id="@item.IdPropietario" title="Detalles">
+                                    <i class="bi bi-eye"></i>
+                                </a>
+                                <a class="btn btn-warning btn-sm me-1" asp-action="Edit" asp-route-id="@item.IdPropietario" title="Editar">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+                                <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@item.IdPropietario" title="Eliminar">
+                                    <i class="bi bi-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 
