@@ -81,7 +81,7 @@ namespace Inmobiliaria_.Net_Core.Controllers
                 {
                     repositorio.Alta(contrato);
                     TempData["Mensaje"] = "Contrato creado correctamente";
-                    return RedirectToAction(nameof(Create));
+                    return RedirectToAction(nameof(Index));
         }
                 else
                 {
