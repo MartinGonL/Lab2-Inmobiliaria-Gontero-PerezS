@@ -27,8 +27,8 @@
                     {
                         <tr>
                             <td>@item.IdContrato</td>
-                            <td>@item.IdInquilino</td>
-                            <td>@item.IdInmueble</td>
+                            <td>@item.Inquilino?.Nombre</td>
+                            <td>@item.Inmueble?.Direccion</td>
                             <td>@item.MontoMensual.ToString("C")</td>
                             <td>@item.FechaInicio.ToString("yyyy-MM-dd")</td>
                             <td>@item.FechaFin.ToString("yyyy-MM-dd")</td>
