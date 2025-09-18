@@ -104,6 +104,10 @@ namespace Inmobiliaria_.Net_Core.Controllers
             try
             {
                 var entidad = repositorio.ObtenerPorId(id);
+                 var inquilinosList = new RepositorioInquilino(config).ObtenerTodos();
+                 ViewBag.inquilinosList = inquilinosList;
+                 var inmueblelist = new RepositorioInmueble(config).ObtenerTodos();
+                 ViewBag.inmuebleList = inmueblelist;
                 return View(entidad);
             }
             catch (Exception ex)
@@ -127,6 +131,10 @@ namespace Inmobiliaria_.Net_Core.Controllers
                 }
                 else
                 {
+                 var inquilinosList = new RepositorioInquilino(config).ObtenerTodos();
+                 ViewBag.inquilinosList = inquilinosList;
+                 var inmueblelist = new RepositorioInmueble(config).ObtenerTodos();
+                 ViewBag.inmuebleList = inmueblelist;
                     return View(entidad);
                 }
             }
