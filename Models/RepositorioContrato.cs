@@ -124,16 +124,19 @@ namespace Inmobiliaria_.Net_Core.Models
             return lista;
         }
 
-        public Contrato ObtenerPorId(int id)
+        public Contrato? ObtenerPorId(int id)
         {
             Contrato contrato = null;
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
-                string sql = @"SELECT c.id_contrato, c.id_inquilino, c.id_inmueble, c.monto_mensual, c.fecha_inicio, c.fecha_fin,
+                string sql = @"SELECT c.id_contrato, c.monto_mensual, c.fecha_inicio, c.fecha_fin,
+                              i.id_inmueble, i.direccion AS InmuebleDireccion,
+                              inq.id_inquilino, inq.nombre AS InquilinoNombre, inq.apellido AS InquilinoApellido,
                               p.nombre AS PropietarioNombre, p.apellido AS PropietarioApellido
                        FROM contrato c
                        INNER JOIN inmueble i ON c.id_inmueble = i.id_inmueble
                        INNER JOIN propietario p ON i.id_propietario = p.id_propietario
+                       INNER JOIN inquilino inq ON c.id_inquilino = inq.id_inquilino
                        WHERE c.id_contrato = @id";
                 using (MySqlCommand command = new MySqlCommand(sql, connection))
                 {
@@ -146,18 +149,24 @@ namespace Inmobiliaria_.Net_Core.Models
                             contrato = new Contrato
                             {
                                 IdContrato = reader.GetInt32(reader.GetOrdinal("id_contrato")),
-                                IdInquilino = reader.GetInt32(reader.GetOrdinal("id_inquilino")),
-                                IdInmueble = reader.GetInt32(reader.GetOrdinal("id_inmueble")),
                                 MontoMensual = reader.GetDecimal(reader.GetOrdinal("monto_mensual")),
                                 FechaInicio = reader.GetDateTime(reader.GetOrdinal("fecha_inicio")),
                                 FechaFin = reader.GetDateTime(reader.GetOrdinal("fecha_fin")),
+                                Inquilino = new Inquilino
+                                {
+                                    IdInquilino = reader.GetInt32(reader.GetOrdinal("id_inquilino")),
+                                    Nombre = reader.GetString(reader.GetOrdinal("InquilinoNombre")),
+                                    Apellido = reader.GetString(reader.GetOrdinal("InquilinoApellido"))
+                                },
                                 Inmueble = new Inmueble
                                 {
-                                    Propietario = new Propietario
-                                    {
-                                        Nombre = reader.GetString(reader.GetOrdinal("PropietarioNombre")),
-                                        Apellido = reader.GetString(reader.GetOrdinal("PropietarioApellido"))
-                                    }
+                                    IdInmueble = reader.GetInt32(reader.GetOrdinal("id_inmueble")),
+                                    Direccion = reader.GetString(reader.GetOrdinal("InmuebleDireccion"))
+                                },
+                                Propietario = new Propietario
+                                {
+                                    Nombre = reader.GetString(reader.GetOrdinal("PropietarioNombre")),
+                                    Apellido = reader.GetString(reader.GetOrdinal("PropietarioApellido"))
                                 }
                             };
                         }
