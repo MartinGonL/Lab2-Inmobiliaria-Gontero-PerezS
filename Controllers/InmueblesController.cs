@@ -94,8 +94,16 @@ namespace Inmobiliaria_.Net_Core.Controllers
         {
             try
             {
-                var entidad = repositorioInmueble.ObtenerPorId(id);
-                return View(entidad);
+                var inmueble = repositorioInmueble.ObtenerPorId(id); // Obtener el inmueble por ID
+                if (inmueble == null)
+                {
+                    return NotFound();
+                }
+
+                var propietariosList = new RepositorioPropietario(config).ObtenerTodos(); // Cargar la lista de propietarios
+                ViewBag.propietariosList = propietariosList;
+
+                return View(inmueble);
             }
             catch (Exception ex)
             {
@@ -106,19 +114,21 @@ namespace Inmobiliaria_.Net_Core.Controllers
         // POST: Inmuebles/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, Inmueble entidad)
+        public ActionResult Edit(int id, Inmueble inmueble)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    repositorioInmueble.Modificacion(entidad);
-                    TempData["Mensaje"] = "Datos guardados correctamente";
+                    repositorioInmueble.Modificacion(inmueble); 
+                    TempData["Mensaje"] = "Inmueble actualizado correctamente";
                     return RedirectToAction(nameof(Index));
                 }
                 else
                 {
-                    return View(entidad);
+                    var propietariosList = repositorioPropietario.ObtenerTodos(); 
+                    ViewBag.propietariosList = propietariosList;
+                    return View(inmueble);
                 }
             }
             catch (Exception ex)

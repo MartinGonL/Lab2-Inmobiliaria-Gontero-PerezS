@@ -1,12 +1,24 @@
 @model Inmobiliaria_.Net_Core.Models.Inmueble
-
+@{
+    ViewData["Title"] = "Crear Inmueble";   
+    var propietariosList = ViewBag.propietariosList as List<Inmobiliaria_.Net_Core.Models.Propietario>;
+}
 <h2>Editar Inmueble</h2>
 
 <form asp-action="Edit" method="post">
     <input type="hidden" name="IdInmueble" value="@Model.IdInmueble" />
     <div class="form-group">
         <label for="IdPropietario">Propietario</label>
-        <input type="number" class="form-control" id="IdPropietario" name="IdPropietario" value="@Model.IdPropietario" required />
+        <select class="form-control" id="IdPropietario" name="IdPropietario" required>
+            <option value="">Seleccione un propietario</option>
+            @if (propietariosList != null)
+            {
+                foreach (var propietario in propietariosList)
+                {
+                    <option value="@propietario.IdPropietario">@propietario.Nombre @propietario.Apellido</option>
+                }
+            }
+        </select>
     </div>
     <div class="form-group">
         <label for="Direccion">Dirección</label>

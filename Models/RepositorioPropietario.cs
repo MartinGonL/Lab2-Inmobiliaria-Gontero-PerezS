@@ -78,7 +78,7 @@ namespace Inmobiliaria_.Net_Core.Models
             using (var connection = new MySqlConnection(connectionString))
             {
                 const string sql = @"SELECT id_propietario, nombre, apellido, dni, telefono, direccion
-                    FROM propietario";
+                                     FROM propietario";
                 using (var command = new MySqlCommand(sql, connection))
                 {
                     connection.Open();
@@ -92,8 +92,8 @@ namespace Inmobiliaria_.Net_Core.Models
                                 Nombre = reader.GetString("nombre"),
                                 Apellido = reader.GetString("apellido"),
                                 Dni = reader.GetString("dni"),
-                                Telefono = reader.GetString("telefono"), 
-                                Direccion = reader.GetString("direccion"), 
+                                Telefono = reader.GetString("telefono"),
+                                Direccion = reader.GetString("direccion"),
                             };
                             res.Add(p);
                         }
