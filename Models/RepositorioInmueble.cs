@@ -97,36 +97,39 @@ namespace Inmobiliaria_.Net_Core.Models
             return lista;
         }
 
-        public Inmueble ObtenerPorId(int id)
+        public Inmueble? ObtenerPorId(int id)
         {
-            Inmueble inmueble = null;
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            Inmueble? inmueble = null;
+            using (var connection = new MySqlConnection(connectionString))
             {
-                string sql = @"SELECT i.id_inmueble, i.id_propietario, i.direccion, i.tipo, i.estado,
-                                      p.nombre AS PropietarioNombre, p.apellido AS PropietarioApellido
-                               FROM inmueble i
-                               INNER JOIN propietario p ON i.id_propietario = p.id_propietario
-                               WHERE i.id_inmueble = @id";
-                using (MySqlCommand command = new MySqlCommand(sql, connection))
+                const string sql = @"SELECT i.id_inmueble, i.id_propietario, i.direccion, i.tipo, i.estado,
+                                    p.id_propietario AS PropietarioId, p.nombre, p.apellido
+                             FROM inmueble i
+                             LEFT JOIN propietario p ON i.id_propietario = p.id_propietario
+                             WHERE i.id_inmueble = @id";
+                using (var command = new MySqlCommand(sql, connection))
                 {
                     command.Parameters.AddWithValue("@id", id);
                     connection.Open();
-                    var reader = command.ExecuteReader();
-                    if (reader.Read())
+                    using (var reader = command.ExecuteReader())
                     {
-                        inmueble = new Inmueble
+                        if (reader.Read())
                         {
-                            IdInmueble = reader.GetInt32("id_inmueble"),
-                            IdPropietario = reader.GetInt32("id_propietario"),
-                            Direccion = reader.GetString("direccion"),
-                            Tipo = reader.IsDBNull(reader.GetOrdinal("tipo")) ? string.Empty : reader.GetString("tipo"),
-                            Estado = reader.GetString("estado"),
-                            Propietario = new Propietario
+                            inmueble = new Inmueble
                             {
-                                Nombre = reader.GetString("PropietarioNombre"),
-                                Apellido = reader.GetString("PropietarioApellido")
-                            }
-                        };
+                                IdInmueble = reader.GetInt32("id_inmueble"),
+                                IdPropietario = reader.GetInt32("id_propietario"),
+                                Direccion = reader.GetString("direccion"),
+                                Tipo = reader.GetString("tipo"),
+                                Estado = reader.GetString("estado"),
+                                Duenio = new Propietario
+                                {
+                                    IdPropietario = reader.GetInt32("PropietarioId"),
+                                    Nombre = reader.GetString("nombre"),
+                                    Apellido = reader.GetString("apellido")
+                                }
+                            };
+                        }
                     }
                 }
             }

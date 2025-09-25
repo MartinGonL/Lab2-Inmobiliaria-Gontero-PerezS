@@ -9,6 +9,7 @@ namespace Inmobiliaria_.Net_Core.Models
 
         [Required]
         public int IdPropietario { get; set; }
+        public Propietario? Duenio { get; set; } // Propietario relacionado
 
         [Required]
         [StringLength(255)]

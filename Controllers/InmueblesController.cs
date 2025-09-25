@@ -49,13 +49,20 @@ namespace Inmobiliaria_.Net_Core.Controllers
         }
 
         // GET: Inmuebles/Create
-        public ActionResult Create()
+        public IActionResult Create()
         {
             try
             {
-                var propietariosList = new RepositorioPropietario(config).ObtenerTodos(); 
-                ViewBag.propietariosList = propietariosList;                
-                return View(new Inmueble());
+                var propietariosList = repositorioPropietario.ObtenerTodos(); // Cargar la lista de propietarios
+                ViewBag.propietariosList = propietariosList;
+
+                var inmueble = new Inmueble
+                {
+                    IdPropietario = 0, // Inicializar con un valor predeterminado
+                    Duenio = null // Inicializar como null si no hay propietario seleccionado
+                };
+
+                return View(inmueble);
             }
             catch (Exception ex)
             {
@@ -90,18 +97,18 @@ namespace Inmobiliaria_.Net_Core.Controllers
         }
 
         // GET: Inmuebles/Edit/5
-        public ActionResult Edit(int id)
+        public IActionResult Edit(int id)
         {
             try
             {
-                var inmueble = repositorioInmueble.ObtenerPorId(id); // Obtener el inmueble por ID
+                var inmueble = repositorioInmueble.ObtenerPorId(id);
                 if (inmueble == null)
                 {
                     return NotFound();
                 }
 
-                var propietariosList = new RepositorioPropietario(config).ObtenerTodos(); // Cargar la lista de propietarios
-                ViewBag.propietariosList = propietariosList;
+                inmueble.Duenio = repositorioPropietario.ObtenerPorId(inmueble.IdPropietario); // Cargar el propietario relacionado
+                ViewBag.propietariosList = repositorioPropietario.ObtenerTodos();
 
                 return View(inmueble);
             }
