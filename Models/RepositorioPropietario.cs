@@ -23,8 +23,8 @@ namespace Inmobiliaria_.Net_Core.Models
                     command.Parameters.AddWithValue("@nombre", p.Nombre);
                     command.Parameters.AddWithValue("@apellido", p.Apellido);
                     command.Parameters.AddWithValue("@dni", p.Dni);
-                    command.Parameters.AddWithValue("@telefono", p.Telefono); 
-                    command.Parameters.AddWithValue("@direccion", p.Direccion); 
+                    command.Parameters.AddWithValue("@telefono", p.Telefono);
+                    command.Parameters.AddWithValue("@direccion", p.Direccion);
                     connection.Open();
                     res = Convert.ToInt32(command.ExecuteScalar());
                     p.IdPropietario = res;
@@ -62,8 +62,8 @@ namespace Inmobiliaria_.Net_Core.Models
                     command.Parameters.AddWithValue("@nombre", p.Nombre);
                     command.Parameters.AddWithValue("@apellido", p.Apellido);
                     command.Parameters.AddWithValue("@dni", p.Dni);
-                    command.Parameters.AddWithValue("@telefono", p.Telefono); 
-                    command.Parameters.AddWithValue("@direccion", p.Direccion); 
+                    command.Parameters.AddWithValue("@telefono", p.Telefono);
+                    command.Parameters.AddWithValue("@direccion", p.Direccion);
                     command.Parameters.AddWithValue("@id", p.IdPropietario);
                     connection.Open();
                     res = command.ExecuteNonQuery();
@@ -125,8 +125,8 @@ namespace Inmobiliaria_.Net_Core.Models
                                 Nombre = reader.GetString("nombre"),
                                 Apellido = reader.GetString("apellido"),
                                 Dni = reader.GetString("dni"),
-                                Telefono = reader.GetString("telefono"), 
-                                Direccion = reader.GetString("direccion"), 
+                                Telefono = reader.GetString("telefono"),
+                                Direccion = reader.GetString("direccion"),
                             };
                         }
                     }
@@ -134,5 +134,38 @@ namespace Inmobiliaria_.Net_Core.Models
             }
             return p;
         }
+        public IList<Propietario> BuscarPorNombre(string nombre)
+		{
+			var res = new List<Propietario>();
+			nombre = "%" + nombre + "%"; // Preparar el parámetro para la búsqueda con LIKE
+			using (var connection = new MySqlConnection(connectionString))
+			{
+				const string sql = @"SELECT id_propietario, nombre, apellido, dni, telefono, direccion
+                                     FROM propietario
+                                     WHERE nombre LIKE @nombre OR apellido LIKE @nombre";
+				using (var command = new MySqlCommand(sql, connection))
+				{
+					command.Parameters.AddWithValue("@nombre", nombre); // Agregar el parámetro
+					connection.Open();
+					using (var reader = command.ExecuteReader())
+					{
+						while (reader.Read())
+						{
+							var p = new Propietario
+							{
+								IdPropietario = reader.GetInt32("id_propietario"),
+								Nombre = reader.GetString("nombre"),
+								Apellido = reader.GetString("apellido"),
+								Dni = reader.GetString("dni"),
+								Telefono = reader.IsDBNull(reader.GetOrdinal("telefono")) ? null : reader.GetString("telefono"),
+								Direccion = reader.IsDBNull(reader.GetOrdinal("direccion")) ? null : reader.GetString("direccion"),
+							};
+							res.Add(p);
+						}
+					}
+				}
+			}
+			return res;
+		}
     }
 }

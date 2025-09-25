@@ -36,6 +36,21 @@ namespace Inmobiliaria_.Net_Core.Controllers
             }
         }
 
+        // GET: Propietarios/Buscar/5
+		[Route("[controller]/Buscar/{q}", Name = "Buscar")]
+		public IActionResult Buscar(string q)
+		{
+			try
+			{
+				var res = repositorio.BuscarPorNombre(q);
+				return Json(new { Datos = res });
+			}
+			catch (Exception ex)
+			{
+				return Json(new { Error = ex.Message });
+			}
+		}
+
         // GET: Propietarios/Details/5
         public ActionResult Details(int id)
         {

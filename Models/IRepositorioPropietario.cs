@@ -7,8 +7,10 @@ namespace Inmobiliaria_.Net_Core.Models
     {
         int Alta(Propietario p);
         int Baja(int id);
-        int Modificacion(Propietario p);        
+        int Modificacion(Propietario p);
         IList<Propietario> ObtenerTodos();
         Propietario ObtenerPorId(int id);
+        IList<Propietario> BuscarPorNombre(string nombre);
+        
     }
 }
