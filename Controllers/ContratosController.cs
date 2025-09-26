@@ -115,13 +115,13 @@ namespace Inmobiliaria_.Net_Core.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    repositorio.Modificacion(entidad); 
-                    TempData["Mensaje"] = "Datos guardados correctamente"; 
-                    return RedirectToAction(nameof(Index)); 
+                    repositorio.Modificacion(entidad); // Llamar al repositorio para modificar el contrato
+                    TempData["Mensaje"] = "Datos guardados correctamente";
+                    return RedirectToAction(nameof(Index));
                 }
                 else
                 {
-                    return View(entidad); 
+                    return View(entidad); // Devolver la vista con los datos actuales si hay errores
                 }
             }
             catch (Exception ex)

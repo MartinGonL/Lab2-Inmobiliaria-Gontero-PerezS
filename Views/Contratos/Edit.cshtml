@@ -5,39 +5,40 @@
 <h2>Editar Contrato</h2>
 
 <form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="IdContrato" />
     <div class="form-group">
-    <label class="control-label" for="Inquilino">Inquilino</label>
-    <select id="Inquilino" class="form-control" name="IdInquilino" required>
-        @if (Model?.IdInquilino > 0)
-        {
-            <option value="@Model.IdInquilino" selected>
-                @Model.Inquilino?.Nombre @Model.Inquilino?.Apellido
-            </option>
-        }
-    </select>
+        <label class="control-label" for="Inquilino">Inquilino</label>
+        <select id="Inquilino" class="form-control" name="IdInquilino" required>
+            @if (Model?.IdInquilino > 0)
+            {
+                <option value="@Model.IdInquilino" selected>
+                    @Model.Inquilino?.Nombre @Model.Inquilino?.Apellido
+                </option>
+            }
+        </select>
     </div>
     <div class="form-group">
-    <label class="control-label" for="Inmueble">Inmueble</label>
-    <select id="Inmueble" class="form-control" name="IdInmueble" required>
-        @if (Model?.IdInmueble > 0)
-        {
-            <option value="@Model.IdInmueble" selected>
-                @Model.Inmueble?.Direccion
-            </option>
-        }
-    </select>  
+        <label class="control-label" for="Inmueble">Inmueble</label>
+        <select id="Inmueble" class="form-control" name="IdInmueble" required>
+            @if (Model?.IdInmueble > 0)
+            {
+                <option value="@Model.IdInmueble" selected>
+                    @Model.Inmueble?.Direccion
+                </option>
+            }
+        </select>  
     </div>  
     <div class="form-group">
         <label for="MontoMensual">Monto Mensual</label>
-        <input type="number" class="form-control" id="MontoMensual" name="MontoMensual" value="@Model.MontoMensual" step="0.01" required />
+        <input type="number" class="form-control" asp-for="MontoMensual" step="0.01" required />
     </div>
     <div class="form-group">
         <label for="FechaInicio">Fecha Inicio</label>
-        <input type="date" class="form-control" id="FechaInicio" name="FechaInicio" value="@Model.FechaInicio.ToString("yyyy-MM-dd")" required />
+        <input type="date" class="form-control" asp-for="FechaInicio" required />
     </div>
     <div class="form-group">
         <label for="FechaFin">Fecha Fin</label>
-        <input type="date" class="form-control" id="FechaFin" name="FechaFin" value="@Model.FechaFin.ToString("yyyy-MM-dd")" required />
+        <input type="date" class="form-control" asp-for="FechaFin" required />
     </div>
     <button type="submit" class="btn btn-success">Guardar</button>
     <a class="btn btn-secondary" asp-action="Index">Cancelar</a>

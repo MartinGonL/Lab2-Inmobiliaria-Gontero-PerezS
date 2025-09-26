@@ -96,7 +96,7 @@ namespace Inmobiliaria_.Net_Core.Controllers
             }
         }
 
-        // GET: Inmuebles/Edit/5
+        // GET:
         public IActionResult Edit(int id)
         {
             try
@@ -118,7 +118,7 @@ namespace Inmobiliaria_.Net_Core.Controllers
             }
         }
 
-        // POST: Inmuebles/Edit/5
+        // POST: 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, Inmueble inmueble)
