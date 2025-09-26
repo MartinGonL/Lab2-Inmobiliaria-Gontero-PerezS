@@ -9,5 +9,6 @@ namespace Inmobiliaria_.Net_Core.Models
         int Modificacion(Inmueble casa);
         IList<Inmueble> ObtenerTodos();
         Inmueble ObtenerPorId(int id);
+        IList<Inmueble> BuscarPorDireccion(string direccion);
     }
 }

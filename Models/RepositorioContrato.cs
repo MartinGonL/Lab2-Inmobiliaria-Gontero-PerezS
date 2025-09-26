@@ -23,8 +23,6 @@ namespace Inmobiliaria_.Net_Core.Models
                     command.Parameters.AddWithValue("@montoMensual", contrato.MontoMensual);
                     command.Parameters.AddWithValue("@fechaInicio", contrato.FechaInicio);
                     command.Parameters.AddWithValue("@fechaFin", contrato.FechaFin);
-                   // command.Parameters.AddWithValue("@creadoPor", contrato.CreadoPor);
-                   //command.Parameters.AddWithValue("@terminadoPor", contrato.TerminadoPor);
                     connection.Open();
                     contrato.IdContrato = Convert.ToInt32(command.ExecuteScalar());
                     connection.Close();
@@ -65,8 +63,6 @@ namespace Inmobiliaria_.Net_Core.Models
                     command.Parameters.AddWithValue("@montoMensual", contrato.MontoMensual);
                     command.Parameters.AddWithValue("@fechaInicio", contrato.FechaInicio);
                     command.Parameters.AddWithValue("@fechaFin", contrato.FechaFin);
-                   // command.Parameters.AddWithValue("@creadoPor", contrato.CreadoPor);
-                  //  command.Parameters.AddWithValue("@terminadoPor", contrato.TerminadoPor);
                     command.Parameters.AddWithValue("@id", contrato.IdContrato);
                     connection.Open();
                     return command.ExecuteNonQuery();

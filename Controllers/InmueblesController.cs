@@ -127,13 +127,13 @@ namespace Inmobiliaria_.Net_Core.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    repositorioInmueble.Modificacion(inmueble); 
+                    repositorioInmueble.Modificacion(inmueble);
                     TempData["Mensaje"] = "Inmueble actualizado correctamente";
                     return RedirectToAction(nameof(Index));
                 }
                 else
                 {
-                    var propietariosList = repositorioPropietario.ObtenerTodos(); 
+                    var propietariosList = repositorioPropietario.ObtenerTodos();
                     ViewBag.propietariosList = propietariosList;
                     return View(inmueble);
                 }
@@ -172,6 +172,27 @@ namespace Inmobiliaria_.Net_Core.Controllers
             catch (Exception ex)
             {
                 throw;
+            }
+        }
+        
+        [Route("Inmueble/Buscar/{q?}", Name = "BuscarInmuebles")]
+        public IActionResult Buscar(string q)
+        {
+            try
+            {
+                var res = repositorioInmueble.BuscarPorDireccion(q);
+                return Json(new
+                {
+                    results = res.Select(i => new
+                    {
+                        id = i.IdInmueble,
+                        text = i.Direccion
+                    })
+                });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { Error = ex.Message });
             }
         }
     }

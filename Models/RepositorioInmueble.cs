@@ -135,5 +135,40 @@ namespace Inmobiliaria_.Net_Core.Models
             }
             return inmueble;
         }
+
+        public IList<Inmueble> BuscarPorDireccion(string direccion)
+        {
+            var res = new List<Inmueble>();
+            direccion = "%" + direccion + "%"; 
+            using (var connection = new MySqlConnection(connectionString))
+            {
+                const string sql = @"SELECT id_inmueble, id_propietario, direccion, tipo, estado
+                             FROM inmueble
+                             WHERE direccion LIKE @direccion";
+                using (var command = new MySqlCommand(sql, connection))
+                {
+                    command.Parameters.AddWithValue("@direccion", direccion); 
+                    connection.Open();
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            var i = new Inmueble
+                            {
+                                IdInmueble = reader.GetInt32("id_inmueble"),
+                                IdPropietario = reader.GetInt32("id_propietario"),
+                                Direccion = reader.GetString("direccion"),
+                                Tipo = reader.GetString("tipo"),
+                                Estado = reader.GetString("estado"),
+                            };
+                            res.Add(i);
+                        }
+                    }
+                }
+            }
+            return res;
+        }
+        
+        
     }
 }

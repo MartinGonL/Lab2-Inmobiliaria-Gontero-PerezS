@@ -58,10 +58,6 @@ namespace Inmobiliaria_.Net_Core.Controllers
         {
             try
             {
-                 var inquilinosList = new RepositorioInquilino(config).ObtenerTodos(); 
-                ViewBag.inquilinosList = inquilinosList;
-                var inmueblelist = new RepositorioInmueble(config).ObtenerTodos(); 
-                ViewBag.inmuebleList = inmueblelist;
                 return View(new Contrato());
             }
             catch (Exception ex)
@@ -82,18 +78,15 @@ namespace Inmobiliaria_.Net_Core.Controllers
                     repositorio.Alta(contrato);
                     TempData["Mensaje"] = "Contrato creado correctamente";
                     return RedirectToAction(nameof(Index));
-        }
+                }
                 else
                 {
-                 var inquilinosList = new RepositorioInquilino(config).ObtenerTodos();
-                 ViewBag.inquilinosList = inquilinosList;
-                 var inmueblelist = new RepositorioInmueble(config).ObtenerTodos();
-                 ViewBag.inmuebleList = inmueblelist;
                     return View(contrato);
                 }
             }
             catch (Exception ex)
             {
+                Console.WriteLine($"Error: {ex.Message}");
                 throw;
             }
         }
@@ -104,14 +97,11 @@ namespace Inmobiliaria_.Net_Core.Controllers
             try
             {
                 var entidad = repositorio.ObtenerPorId(id);
-                 var inquilinosList = new RepositorioInquilino(config).ObtenerTodos();
-                 ViewBag.inquilinosList = inquilinosList;
-                 var inmueblelist = new RepositorioInmueble(config).ObtenerTodos();
-                 ViewBag.inmuebleList = inmueblelist;
                 return View(entidad);
             }
             catch (Exception ex)
             {
+                Console.WriteLine($"Error: {ex.Message}");
                 throw;
             }
         }
@@ -125,21 +115,18 @@ namespace Inmobiliaria_.Net_Core.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    repositorio.Modificacion(entidad);
-                    TempData["Mensaje"] = "Datos guardados correctamente";
-                    return RedirectToAction(nameof(Index));
+                    repositorio.Modificacion(entidad); 
+                    TempData["Mensaje"] = "Datos guardados correctamente"; 
+                    return RedirectToAction(nameof(Index)); 
                 }
                 else
                 {
-                 var inquilinosList = new RepositorioInquilino(config).ObtenerTodos();
-                 ViewBag.inquilinosList = inquilinosList;
-                 var inmueblelist = new RepositorioInmueble(config).ObtenerTodos();
-                 ViewBag.inmuebleList = inmueblelist;
-                    return View(entidad);
+                    return View(entidad); 
                 }
             }
             catch (Exception ex)
             {
+                Console.WriteLine($"Error: {ex.Message}");
                 throw;
             }
         }

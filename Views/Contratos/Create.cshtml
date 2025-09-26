@@ -10,31 +10,27 @@
 
 <form asp-action="Create" method="post">
     <div class="form-group">
-        <label for="IdInquilino">Inquilino</label>
-        <select class="form-control" id="IdInquilino" name="IdInquilino" required>
-            <option value="">Seleccione un inquilino</option>
-            @if (inquilinosList != null)
+        <label class="control-label" for="Inquilino">Inquilino</label>
+        <select id="Inquilino" class="form-control" name="IdInquilino" required>
+            @if (Model?.IdInquilino > 0)
             {
-                foreach (var inquilino in inquilinosList)
-                {
-                    <option value="@inquilino.IdInquilino">@inquilino.Nombre @inquilino.Apellido</option>
-                }
+                <option value="@Model.IdInquilino" selected>
+                    @Model.Inquilino?.Nombre @Model.Inquilino?.Apellido
+                </option>
             }
         </select>
     </div>
     <div class="form-group">
-        <label for="IdInmueble">Inmueble</label>
-        <select class="form-control" id="IdInmueble" name="IdInmueble" required>
-            <option value="">Seleccione un inmueble</option>
-            @if (inmueblesList != null)
+        <label class="control-label" for="Inmueble">Inmueble</label>
+        <select id="Inmueble" class="form-control" name="IdInmueble" required>
+            @if (Model?.IdInmueble > 0)
             {
-                foreach (var inmueble in inmueblesList)
-                {
-                    <option value="@inmueble.IdInmueble">@inmueble.Direccion</option>
-                }
+                <option value="@Model.IdInmueble" selected>
+                    @Model.Inmueble?.Direccion
+                </option>
             }
-        </select>  
-    </div>           
+        </select>
+    </div>
     <div class="form-group">
         <label for="MontoMensual">Monto Mensual</label>
         <input type="number" class="form-control" id="MontoMensual" name="MontoMensual" step="0.01" required />
@@ -50,3 +46,54 @@
     <button type="submit" class="btn btn-success">Guardar</button>
     <a class="btn btn-secondary" asp-action="Index">Cancelar</a>
 </form>
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#Inquilino').select2({
+                language: "es",
+                theme: 'bootstrap',  
+                placeholder: "Buscar inquilino...",
+                minimumInputLength: 3,
+                maximumInputLength: 10, 
+                ajax: {
+                    delay: 250,
+                    dataType: "json",
+                    cache: true, 
+                    url: function (params) {
+                        let q = params.term ? encodeURIComponent(params.term) : "";
+                        return `/Inquilino/Buscar/${q}`;
+                    },
+                    processResults: function (res) {
+                        return {
+                            results: res.results 
+                        };
+                    }
+                }
+            });
+        });
+        $(document).ready(function () {
+            $('#Inmueble').select2({
+                language: "es",
+                theme: 'bootstrap',  
+                placeholder: "Buscar inmueble...",
+                minimumInputLength: 3, 
+                maximumInputLength: 10, 
+                ajax: {
+                    delay: 250,
+                    dataType: "json",
+                    cache: true, 
+                    url: function (params) {
+                        let q = params.term ? encodeURIComponent(params.term) : "";
+                        return `/Inmueble/Buscar/${q}`;
+                    },
+                    processResults: function (res) {
+                        return {
+                            results: res.results 
+                        };
+                    }
+                }
+            });
+        });
+    </script>
+}

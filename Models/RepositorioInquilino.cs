@@ -104,6 +104,40 @@ namespace Inmobiliaria_.Net_Core.Models
             return res;
         }
 
+        public IList<Inquilino> BuscarPorNombre(string nombre)
+        {
+            var res = new List<Inquilino>();
+            nombre = "%" + nombre + "%"; 
+            using (var connection = new MySqlConnection(connectionString))
+            {
+                const string sql = @"SELECT id_inquilino, nombre, apellido, dni, telefono, direccion
+                                     FROM inquilino
+                                     WHERE nombre LIKE @nombre OR apellido LIKE @nombre";
+                using (var command = new MySqlCommand(sql, connection))
+                {
+                    command.Parameters.AddWithValue("@nombre", nombre); 
+                    connection.Open();
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            var i = new Inquilino
+                            {
+                                IdInquilino = reader.GetInt32("id_inquilino"),
+                                Nombre = reader.GetString("nombre"),
+                                Apellido = reader.GetString("apellido"),
+                                Dni = reader.GetString("dni"),
+                                Telefono = reader.GetString("telefono"),
+                                Direccion = reader.GetString("direccion"),
+                            };
+                            res.Add(i);
+                        }
+                    }
+                }
+            }
+            return res;
+        }
+
         public Inquilino ObtenerPorId(int id)
         {
             Inquilino i = null;

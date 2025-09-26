@@ -120,6 +120,27 @@ namespace Inmobiliaria_.Net_Core.Controllers
             }
         }
 
+        [Route("[controller]/Buscar/{q?}", Name = "BuscarInquilinos")]
+        public IActionResult Buscar(string q)
+        {
+        try
+        {
+        var res = repositorio.BuscarPorNombre(q);
+        return Json(new
+        {
+            results = res.Select(i => new
+            {
+                id = i.IdInquilino,
+                text = $"{i.Nombre} {i.Apellido}"
+            })
+        });
+        }
+        catch (Exception ex)
+         {
+        return Json(new { Error = ex.Message });
+         }
+        }
+
         // GET: Inquilino/Delete
         public ActionResult Delete(int id)
         {
