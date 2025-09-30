@@ -1,0 +1,48 @@
+@model Inmobiliaria_.Net_Core.Models.Pago
+
+@{
+    ViewData["Title"] = "Registrar Pago";
+}
+
+<h2>Registrar Pago</h2>
+
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <label asp-for="IdContrato"></label>
+        <select asp-for="IdContrato" asp-items="ViewBag.Contratos" class="form-control"></select>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="FechaPago"></label>
+        <input asp-for="FechaPago" type="date" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="MontoPagado"></label>
+        <input asp-for="MontoPagado" type="number" step="0.01" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="MesCorrespondiente"></label>
+        <input asp-for="MesCorrespondiente" type="number" min="1" max="12" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="AnioCorrespondiente"></label>
+        <input asp-for="AnioCorrespondiente" type="number" min="2000" max="2100" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Estado"></label>
+        <select asp-for="Estado" class="form-control">
+            <option value="activo">Activo</option>
+            <option value="anulado">Anulado</option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-success">Guardar</button>
+    <a class="btn btn-secondary" asp-action="Index">Cancelar</a>
+</form>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

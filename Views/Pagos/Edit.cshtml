@@ -1,0 +1,47 @@
+@model Inmobiliaria_.Net_Core.Models.Pago
+
+@{
+    ViewData["Title"] = "Editar Pago";
+}
+
+<h2>Editar Pago</h2>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="IdPago" />
+
+    <div class="form-group">
+        <label asp-for="IdContrato"></label>
+        <select asp-for="IdContrato" asp-items="ViewBag.Contratos" class="form-control"></select>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="FechaPago"></label>
+        <input asp-for="FechaPago" type="date" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="MontoPagado"></label>
+        <input asp-for="MontoPagado" type="number" step="0.01" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="MesCorrespondiente"></label>
+        <input asp-for="MesCorrespondiente" type="number" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="AnioCorrespondiente"></label>
+        <input asp-for="AnioCorrespondiente" type="number" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Estado"></label>
+        <select asp-for="Estado" class="form-control">
+            <option value="activo">Activo</option>
+            <option value="anulado">Anulado</option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-warning">Guardar cambios</button>
+    <a class="btn btn-secondary" asp-action="Index">Cancelar</a>
+</form>
