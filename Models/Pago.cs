@@ -1,31 +1,39 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Inmobiliaria_.Net_Core.Models
 {
     public class Pago
     {
-        public int Id_Pago { get; set; }
+        [Column("id_pago")]
+        public int IdPago { get; set; }
 
         [Required]
-        public int Id_Contrato { get; set; }
+        [Column("id_contrato")]
+        public int IdContrato { get; set; }
 
         [DataType(DataType.Date)]
         [Display(Name = "Fecha de Pago")]
-        public DateTime Fecha_Pago { get; set; }
+        [Column("fecha_pago")]
+        public DateTime FechaPago { get; set; }
 
         [Required, Display(Name = "Monto Pagado")]
         [Range(0.01, 999999.99)]
-        public decimal Monto_Pagado { get; set; }
+        [Column("monto_pagado")]
+        public decimal MontoPagado { get; set; }
 
         [Display(Name = "Mes Correspondiente")]
         [Range(1, 12)]
-        public byte Mes_Correspondiente { get; set; }
+        [Column("mes_correspondiente")]
+        public byte MesCorrespondiente { get; set; }
 
         [Display(Name = "Año Correspondiente")]
-        public short Anio_Correspondiente { get; set; }
+        [Column("anio_correspondiente")]
+        public short AnioCorrespondiente { get; set; }
 
         [Display(Name = "Estado")]
+        [Column("estado")]
         public string Estado { get; set; }
 
         // Propiedad de navegación opcional

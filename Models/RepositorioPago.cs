@@ -21,15 +21,15 @@ namespace Inmobiliaria_.Net_Core.Models
                     SELECT LAST_INSERT_ID();";
                 using (MySqlCommand command = new MySqlCommand(sql, connection))
                 {
-                    command.Parameters.AddWithValue("@id_contrato", p.Id_Contrato);
-                    command.Parameters.AddWithValue("@fecha_pago", p.Fecha_Pago);
-                    command.Parameters.AddWithValue("@monto_pagado", p.Monto_Pagado);
-                    command.Parameters.AddWithValue("@mes", p.Mes_Correspondiente);
-                    command.Parameters.AddWithValue("@anio", p.Anio_Correspondiente);
+                    command.Parameters.AddWithValue("@id_contrato", p.IdContrato);
+                    command.Parameters.AddWithValue("@fecha_pago", p.FechaPago);
+                    command.Parameters.AddWithValue("@monto_pagado", p.MontoPagado);
+                    command.Parameters.AddWithValue("@mes", p.MesCorrespondiente);
+                    command.Parameters.AddWithValue("@anio", p.AnioCorrespondiente);
                     command.Parameters.AddWithValue("@estado", p.Estado ?? "activo");
                     connection.Open();
                     res = Convert.ToInt32(command.ExecuteScalar());
-                    p.Id_Pago = res;
+                    p.IdPago = res;
                     connection.Close();
                 }
             }
@@ -68,13 +68,13 @@ namespace Inmobiliaria_.Net_Core.Models
                     WHERE id_pago=@id";
                 using (MySqlCommand command = new MySqlCommand(sql, connection))
                 {
-                    command.Parameters.AddWithValue("@id_contrato", p.Id_Contrato);
-                    command.Parameters.AddWithValue("@fecha_pago", p.Fecha_Pago);
-                    command.Parameters.AddWithValue("@monto_pagado", p.Monto_Pagado);
-                    command.Parameters.AddWithValue("@mes", p.Mes_Correspondiente);
-                    command.Parameters.AddWithValue("@anio", p.Anio_Correspondiente);
+                    command.Parameters.AddWithValue("@id_contrato", p.IdContrato);
+                    command.Parameters.AddWithValue("@fecha_pago", p.FechaPago);
+                    command.Parameters.AddWithValue("@monto_pagado", p.MontoPagado);
+                    command.Parameters.AddWithValue("@mes", p.MesCorrespondiente);
+                    command.Parameters.AddWithValue("@anio", p.AnioCorrespondiente);
                     command.Parameters.AddWithValue("@estado", p.Estado);
-                    command.Parameters.AddWithValue("@id", p.Id_Pago);
+                    command.Parameters.AddWithValue("@id", p.IdPago);
                     connection.Open();
                     res = command.ExecuteNonQuery();
                     connection.Close();
@@ -149,12 +149,12 @@ namespace Inmobiliaria_.Net_Core.Models
         {
             return new Pago
             {
-                Id_Pago = r.GetInt32("id_pago"),
-                Id_Contrato = r.GetInt32("id_contrato"),
-                Fecha_Pago = r.GetDateTime("fecha_pago"),
-                Monto_Pagado = r.GetDecimal("monto_pagado"),
-                Mes_Correspondiente = r.GetByte("mes_correspondiente"),
-                Anio_Correspondiente = r.GetInt16("anio_correspondiente"),
+                IdPago = r.GetInt32("id_pago"),
+                IdContrato = r.GetInt32("id_contrato"),
+                FechaPago = r.GetDateTime("fecha_pago"),
+                MontoPagado = r.GetDecimal("monto_pagado"),
+                MesCorrespondiente = r.GetByte("mes_correspondiente"),
+                AnioCorrespondiente = r.GetInt16("anio_correspondiente"),
                 Estado = r.GetString("estado")
             };
         }
