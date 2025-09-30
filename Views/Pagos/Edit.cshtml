@@ -10,8 +10,9 @@
     <input type="hidden" asp-for="IdPago" />
 
     <div class="form-group">
-        <label asp-for="IdContrato"></label>
+        <label asp-for="IdContrato" class="control-label"></label>
         <select asp-for="IdContrato" asp-items="ViewBag.Contratos" class="form-control"></select>
+        <span asp-validation-for="IdContrato" class="text-danger"></span>
     </div>
 
     <div class="form-group">

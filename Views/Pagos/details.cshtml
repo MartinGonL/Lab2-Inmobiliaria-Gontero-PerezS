@@ -8,7 +8,11 @@
 
 <dl class="row">
     <dt class="col-sm-2">Contrato</dt>
-    <dd class="col-sm-10">@Model.Contrato?</dd>
+    <dd class="col-sm-10">
+        Contrato #@Model.Contrato.IdContrato -
+        Inquilino: @Model.Contrato.Inquilino.Nombre @Model.Contrato.Inquilino.Apellido -
+        Inmueble: @Model.Contrato.Inmueble.Direccion
+    </dd>
 
     <dt class="col-sm-2">Fecha</dt>
     <dd class="col-sm-10">@Model.FechaPago.ToShortDateString()</dd>

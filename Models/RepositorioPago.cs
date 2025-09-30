@@ -83,26 +83,63 @@ namespace Inmobiliaria_.Net_Core.Models
             return res;
         }
 
-        public Pago ObtenerPorId(int id)
+        public Pago? ObtenerPorId(int id)
         {
-            Pago p = null;
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
+        Pago? pago = null;
+        using (MySqlConnection connection = new MySqlConnection(connectionString))
+        {
+        string sql = @"SELECT p.id_pago, p.id_contrato, p.fecha_pago, p.monto_pagado,
+                              p.mes_correspondiente, p.anio_correspondiente, p.estado,
+                              c.id_contrato, c.monto_mensual, c.fecha_inicio, c.fecha_fin,
+                              inq.id_inquilino, inq.nombre AS InquilinoNombre, inq.apellido AS InquilinoApellido,
+                              i.id_inmueble, i.direccion AS InmuebleDireccion
+                       FROM pago p
+                       INNER JOIN contrato c ON p.id_contrato = c.id_contrato
+                       INNER JOIN inquilino inq ON c.id_inquilino = inq.id_inquilino
+                       INNER JOIN inmueble i ON c.id_inmueble = i.id_inmueble
+                       WHERE p.id_pago = @id";
+        using (MySqlCommand command = new MySqlCommand(sql, connection))
+        {
+            command.Parameters.AddWithValue("@id", id);
+            connection.Open();
+            using (var reader = command.ExecuteReader())
             {
-                string sql = @"SELECT * FROM pago WHERE id_pago=@id";
-                using (MySqlCommand command = new MySqlCommand(sql, connection))
+                if (reader.Read())
                 {
-                    command.Parameters.AddWithValue("@id", id);
-                    connection.Open();
-                    var reader = command.ExecuteReader();
-                    if (reader.Read())
+                    pago = new Pago
                     {
-                        p = Mapear(reader);
-                    }
-                    connection.Close();
+                        IdPago = reader.GetInt32("id_pago"),
+                        IdContrato = reader.GetInt32("id_contrato"),
+                        FechaPago = reader.GetDateTime("fecha_pago"),
+                        MontoPagado = reader.GetDecimal("monto_pagado"),
+                        MesCorrespondiente = reader.GetByte("mes_correspondiente"),
+                        AnioCorrespondiente = reader.GetInt16("anio_correspondiente"),
+                        Estado = reader.GetString("estado"),
+                        Contrato = new Contrato
+                        {
+                            IdContrato = reader.GetInt32("id_contrato"),
+                            MontoMensual = reader.GetDecimal("monto_mensual"),
+                            FechaInicio = reader.GetDateTime("fecha_inicio"),
+                            FechaFin = reader.GetDateTime("fecha_fin"),
+                            Inquilino = new Inquilino
+                            {
+                                IdInquilino = reader.GetInt32("id_inquilino"),
+                                Nombre = reader.GetString("InquilinoNombre"),
+                                Apellido = reader.GetString("InquilinoApellido")
+                            },
+                            Inmueble = new Inmueble
+                            {
+                                IdInmueble = reader.GetInt32("id_inmueble"),
+                                Direccion = reader.GetString("InmuebleDireccion")
+                            }
+                        }
+                    };
                 }
             }
-            return p;
         }
+    }
+    return pago;
+}
 
         public IList<Pago> ObtenerTodos()
         {

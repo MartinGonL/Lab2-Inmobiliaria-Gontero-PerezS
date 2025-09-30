@@ -29,50 +29,69 @@ public class PagosController : Controller
     }
 
     // GET: Pagos/Create
-    public IActionResult Create()
+public IActionResult Create()
+{
+   
+    ViewBag.Contratos = new SelectList(repoContrato.ObtenerTodos(),"IdContrato","Descripcion");
+    return View();
+}
+
+// POST: Pagos/Create
+[HttpPost]
+[ValidateAntiForgeryToken]
+public IActionResult Create(Pago pago)
+{
+    if (ModelState.IsValid)
     {
-        ViewBag.Contratos = new SelectList(repoContrato.ObtenerTodos(), "IdContrato", "Descripcion");
-        return View();
+        repoPago.Alta(pago);
+        return RedirectToAction(nameof(Index));
+    }
+    
+    ViewBag.Contratos = new SelectList(
+        repoContrato.ObtenerTodos(),
+        "IdContrato",
+        "Descripcion",
+        pago.IdContrato
+    );
+    return View(pago);
+}
+
+// GET: Pagos/Edit/5
+public IActionResult Edit(int id)
+{
+    var pago = repoPago.ObtenerPorId(id);
+    if (pago == null) return NotFound();
+
+    ViewBag.Contratos = new SelectList(
+        repoContrato.ObtenerTodos(),
+        "IdContrato",
+        "Descripcion",
+        pago.IdContrato
+    );
+    return View(pago);
+}
+
+// POST: Pagos/Edit/5
+[HttpPost]
+[ValidateAntiForgeryToken]
+public IActionResult Edit(int id, Pago pago)
+{
+    if (id != pago.IdPago) return NotFound();
+
+    if (ModelState.IsValid)
+    {
+        repoPago.Modificacion(pago);
+        return RedirectToAction(nameof(Index));
     }
 
-    // POST: Pagos/Create
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public IActionResult Create(Pago pago)
-    {
-        if (ModelState.IsValid)
-        {
-            repoPago.Alta(pago);
-            return RedirectToAction(nameof(Index));
-        }
-        ViewBag.Contratos = new SelectList(repoContrato.ObtenerTodos(), "IdContrato", "Descripcion", pago.IdContrato);
-        return View(pago);
-    }
-
-    // GET: Pagos/Edit/5
-    public IActionResult Edit(int id)
-    {
-        var pago = repoPago.ObtenerPorId(id);
-        if (pago == null) return NotFound();
-        ViewBag.Contratos = new SelectList(repoContrato.ObtenerTodos(), "IdContrato", "Descripcion", pago.IdContrato);
-        return View(pago);
-    }
-
-    // POST: Pagos/Edit/5
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public IActionResult Edit(int id, Pago pago)
-    {
-        if (id != pago.IdPago) return NotFound();
-
-        if (ModelState.IsValid)
-        {
-            repoPago.Modificacion(pago);
-            return RedirectToAction(nameof(Index));
-        }
-        ViewBag.Contratos = new SelectList(repoContrato.ObtenerTodos(), "IdContrato", "Descripcion", pago.IdContrato);
-        return View(pago);
-    }
+    ViewBag.Contratos = new SelectList(
+        repoContrato.ObtenerTodos(),
+        "IdContrato",
+        "Descripcion",
+        pago.IdContrato
+    );
+    return View(pago);
+}
 
     // GET: Pagos/Delete/5
     public IActionResult Delete(int id)

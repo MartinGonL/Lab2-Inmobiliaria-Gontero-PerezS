@@ -93,6 +93,8 @@ namespace Inmobiliaria_.Net_Core.Models
                             lista.Add(new Contrato
                             {
                                 IdContrato = reader.GetInt32(reader.GetOrdinal("id_contrato")),
+                                IdInquilino = reader.GetInt32(reader.GetOrdinal("id_inquilino")),
+                                IdInmueble = reader.GetInt32(reader.GetOrdinal("id_inmueble")),
                                 MontoMensual = reader.GetDecimal(reader.GetOrdinal("monto_mensual")),
                                 FechaInicio = reader.GetDateTime(reader.GetOrdinal("fecha_inicio")),
                                 FechaFin = reader.GetDateTime(reader.GetOrdinal("fecha_fin")),
@@ -145,6 +147,8 @@ namespace Inmobiliaria_.Net_Core.Models
                             contrato = new Contrato
                             {
                                 IdContrato = reader.GetInt32(reader.GetOrdinal("id_contrato")),
+                                IdInquilino = reader.GetInt32(reader.GetOrdinal("id_inquilino")),
+                                IdInmueble = reader.GetInt32(reader.GetOrdinal("id_inmueble")),
                                 MontoMensual = reader.GetDecimal(reader.GetOrdinal("monto_mensual")),
                                 FechaInicio = reader.GetDateTime(reader.GetOrdinal("fecha_inicio")),
                                 FechaFin = reader.GetDateTime(reader.GetOrdinal("fecha_fin")),
